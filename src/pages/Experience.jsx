@@ -11,6 +11,7 @@ import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import AccountTreeIcon from '@mui/icons-material/AccountTree';
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
 
 const MotionPaper = motion(Paper);
 
@@ -34,6 +35,7 @@ const experiences = [
     title: 'Software Engineer',
     company: 'PRESIDIO',
     client: 'Met-Eireann (Irish Meteorological Service)',
+    product: "https://opendata.met.ie/",
     period: '01/06/2022 – 01/07/2023',
     location: 'Coimbatore, India',
     technologies: ['React', 'Spring Boot', 'Redis', 'Kafka', 'Python', 'Celery', 'Redux'],
@@ -83,9 +85,9 @@ function Experience() {
   return (
     <Container maxWidth="lg" sx={{ px: { xs: 2, md: 4 } }}>
       <Box sx={{ mt: 4, mb: 8, maxWidth: '100%' }}>
-        <Typography 
-          variant="h3" 
-          component="h2" 
+        <Typography
+          variant="h3"
+          component="h2"
           gutterBottom
           sx={{
             fontWeight: 600,
@@ -96,8 +98,8 @@ function Experience() {
           Professional Experience
         </Typography>
 
-        <Timeline 
-          sx={{ 
+        <Timeline
+          sx={{
             p: 0,
             [`& .MuiTimelineContent-root`]: {
               flex: 4, // Gives more width to the content
@@ -124,7 +126,7 @@ function Experience() {
               <TimelineContent>
                 <MotionPaper
                   elevation={3}
-                  sx={{ 
+                  sx={{
                     p: { xs: 2, sm: 3 },
                     mb: 3,
                     borderLeft: 4,
@@ -145,7 +147,7 @@ function Experience() {
                       <Typography variant="h5" component="h3" sx={{ fontWeight: 600, mb: 1 }}>
                         {exp.title}
                       </Typography>
-                      
+
                       <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
                         <BusinessIcon sx={{ mr: 1, color: 'primary.main' }} />
                         <Typography variant="h6" color="primary.main">
@@ -158,6 +160,14 @@ function Experience() {
                           <AccountTreeIcon sx={{ mr: 1, color: 'text.secondary', fontSize: '0.9rem' }} />
                           <Typography variant="body2" color="text.secondary">
                             Client: {exp.client}
+                          </Typography>
+                        </Box>
+                      )}
+                      {exp.product && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, pl: 0.5 }}>
+                          <OpenInBrowserIcon sx={{ mr: 1, color: 'text.secondary', fontSize: '0.9rem' }} />
+                          <Typography variant="body2" color="text.secondary">
+                            Product: <a href={exp.product} target="_blank" rel="noopener noreferrer">{exp.product}</a>
                           </Typography>
                         </Box>
                       )}
@@ -206,26 +216,26 @@ function Experience() {
                     </Typography>
                     <Box sx={{ pl: 1 }}>
                       {exp.achievements.map((achievement, i) => (
-                        <Box 
-                          key={i} 
-                          sx={{ 
-                            display: 'flex', 
+                        <Box
+                          key={i}
+                          sx={{
+                            display: 'flex',
                             alignItems: 'flex-start',
                             mb: 1
                           }}
                         >
-                          <ArrowRightIcon 
-                            sx={{ 
+                          <ArrowRightIcon
+                            sx={{
                               color: 'primary.main',
                               mr: 1,
                               mt: 0.3,
                               fontSize: '1rem'
-                            }} 
+                            }}
                           />
-                          <Typography 
-                            variant="body2" 
+                          <Typography
+                            variant="body2"
                             color="text.secondary"
-                            sx={{ 
+                            sx={{
                               lineHeight: 1.6,
                               flex: 1
                             }}

@@ -83,7 +83,7 @@ function Education() {
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <Typography variant="h5" component="h3" gutterBottom color="primary">
-            Professional Certification
+            Cloud Certifications
           </Typography>
           <Typography variant="h6" gutterBottom>
             AWS Certified Solutions Architect – Associate
@@ -93,6 +93,30 @@ function Education() {
               Certification Badge
             </a>
           </Typography>
+        </MotionPaper>
+        <MotionPaper
+          elevation={3}
+          sx={{ p: 3, mt: 4 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+        >
+          <Typography variant="h5" component="h3" gutterBottom color="primary">
+            Blockchain Certifications
+          </Typography>
+          <Typography variant="h6" gutterBottom>
+            Blockchain Developer Nanodegree - UDACITY
+          </Typography>
+          <Typography variant="body1">
+            View credential: <a href="https://www.udacity.com/certificate/3J4EH5JR" target="_blank" rel="noopener noreferrer">
+              Certification Badge
+            </a>
+          </Typography>
+          <br />
+          <Typography variant="h6" gutterBottom>
+            Blockchain Architecture Design And Use Cases NPTEL - IIT Kharagpur and IBM
+          </Typography>
+
         </MotionPaper>
       </Box>
     </Container>

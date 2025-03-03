@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import EmailIcon from '@mui/icons-material/Email';
-import profileImage from '../assets/file.jpg';
+import profileImage from '../assets/picture.jpeg';
 
 const MotionTypography = motion(Typography);
 const MotionBox = motion(Box);
@@ -38,10 +38,15 @@ function Home() {
             src={profileImage}
             alt="Krishnamurthy Kowsik Gelli"
             sx={{
-              width: 200,
-              height: 200,
-              border: 3,
-              borderColor: 'primary.main'
+              width: 230,
+              height: 230,
+              border: "none",
+            }}
+            imgProps={{
+              style: {
+                objectFit: "cover",
+                objectPosition: "center 20%",
+              },
             }}
           />
         </MotionBox>

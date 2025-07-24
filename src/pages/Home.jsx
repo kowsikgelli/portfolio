@@ -54,7 +54,7 @@ function Home() {
     { icon: <CodeIcon fontSize="small" />, label: 'Full-Stack Developer' },
     { icon: <CloudIcon fontSize="small" />, label: 'Cloud Architect' },
     { icon: <WorkIcon fontSize="small" />, label: '3+ Years Experience' },
-    { icon: <LocationOnIcon fontSize="small" />, label: 'San Francisco, CA' },
+    { icon: <LocationOnIcon fontSize="small" />, label: 'Dublin, Ireland' },
   ];
 
   return (

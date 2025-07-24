@@ -9,10 +9,14 @@ import {
   Container,
   Button,
   MenuItem,
-  useScrollTrigger,
+  useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useColorMode } from '../context/ThemeContext';
+import { motion } from 'framer-motion';
 
 const pages = [
   { name: 'Home', path: '/' },
@@ -27,10 +31,8 @@ function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
+  const theme = useTheme();
+  const { mode, toggleColorMode } = useColorMode();
 
   const [scrolled, setScrolled] = useState(false);
 
@@ -64,9 +66,12 @@ function Navbar() {
       position="fixed"
       elevation={scrolled ? 2 : 0}
       sx={{
-        backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)',
-        backdropFilter: 'blur(8px)',
+        backgroundColor: scrolled 
+          ? theme.palette.background.paper + 'F5'
+          : theme.palette.background.paper + 'E5',
+        backdropFilter: 'blur(10px)',
         transition: 'all 0.3s ease-in-out',
+        borderBottom: `1px solid ${theme.palette.divider}`,
       }}
     >
       <Container maxWidth="xl">
@@ -78,12 +83,16 @@ function Navbar() {
               mr: 4,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'Inter',
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: '-0.02em',
               color: 'primary.main',
               textDecoration: 'none',
               cursor: 'pointer',
               fontSize: '1.5rem',
+              transition: 'transform 0.2s ease-in-out',
+              '&:hover': {
+                transform: 'scale(1.05)',
+              },
             }}
             onClick={() => navigate('/')}
           >
@@ -97,7 +106,7 @@ function Navbar() {
               aria-controls="menu-appbar"
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
-              sx={{ color: 'primary.main' }}
+              sx={{ color: 'text.primary' }}
             >
               <MenuIcon />
             </IconButton>
@@ -118,11 +127,14 @@ function Navbar() {
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
-              PaperProps={{
-                elevation: 2,
-                sx: {
-                  borderRadius: 2,
-                  mt: 1.5,
+              slotProps={{
+                paper: {
+                  elevation: 3,
+                  sx: {
+                    borderRadius: 2,
+                    mt: 1.5,
+                    minWidth: 200,
+                  }
                 }
               }}
             >
@@ -132,14 +144,19 @@ function Navbar() {
                   onClick={() => handleNavigation(page.path)}
                   selected={location.pathname === page.path}
                   sx={{
-                    minWidth: 180,
+                    py: 1.5,
                     '&.Mui-selected': {
-                      backgroundColor: 'primary.light',
-                      color: 'white',
+                      backgroundColor: 'primary.main',
+                      color: 'primary.contrastText',
+                      '&:hover': {
+                        backgroundColor: 'primary.dark',
+                      }
                     }
                   }}
                 >
-                  <Typography textAlign="center">{page.name}</Typography>
+                  <Typography textAlign="center" fontWeight={location.pathname === page.path ? 600 : 400}>
+                    {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -152,7 +169,7 @@ function Navbar() {
               display: { xs: 'flex', md: 'none' },
               flexGrow: 1,
               fontFamily: 'Inter',
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: '-0.02em',
               color: 'primary.main',
               textDecoration: 'none',
@@ -164,28 +181,32 @@ function Navbar() {
             KOWSIK GELLI
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', gap: 1 }}>
             {pages.map((page) => (
               <Button
                 key={page.name}
                 onClick={() => handleNavigation(page.path)}
                 sx={{
-                  mx: 1,
+                  mx: 0.5,
                   color: location.pathname === page.path ? 'primary.main' : 'text.secondary',
                   display: 'block',
-                  fontWeight: location.pathname === page.path ? 600 : 500,
+                  fontWeight: location.pathname === page.path ? 700 : 500,
                   position: 'relative',
                   '&::after': {
                     content: '""',
                     position: 'absolute',
-                    bottom: 0,
+                    bottom: -4,
                     left: '50%',
                     transform: location.pathname === page.path ? 'translateX(-50%)' : 'translateX(-50%) scaleX(0)',
                     height: '3px',
-                    width: '100%',
+                    width: '80%',
                     backgroundColor: 'primary.main',
                     borderRadius: '2px',
                     transition: 'transform 0.3s ease-in-out',
+                  },
+                  '&:hover': {
+                    color: 'primary.main',
+                    backgroundColor: 'transparent',
                   },
                   '&:hover::after': {
                     transform: 'translateX(-50%) scaleX(1)',
@@ -195,6 +216,26 @@ function Navbar() {
                 {page.name}
               </Button>
             ))}
+          </Box>
+
+          <Box sx={{ ml: 2 }}>
+            <motion.div
+              whileHover={{ rotate: 180 }}
+              transition={{ duration: 0.3 }}
+            >
+              <IconButton
+                onClick={toggleColorMode}
+                sx={{
+                  color: 'primary.main',
+                  backgroundColor: theme.palette.background.alternate,
+                  '&:hover': {
+                    backgroundColor: theme.palette.action.hover,
+                  },
+                }}
+              >
+                {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
+            </motion.div>
           </Box>
         </Toolbar>
       </Container>

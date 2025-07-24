@@ -1,7 +1,5 @@
-import { ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { theme } from './theme/theme';
+import { ColorModeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Experience from './pages/Experience';
@@ -13,8 +11,7 @@ import { Container } from '@mui/material';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ColorModeProvider>
       <Router>
         <Navbar />
         <Container maxWidth="lg" sx={{ mt: 10, mb: 4, pt: 4 }}>
@@ -28,7 +25,7 @@ function App() {
           </Routes>
         </Container>
       </Router>
-    </ThemeProvider>
+    </ColorModeProvider>
   );
 }
 
